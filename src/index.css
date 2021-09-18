@@ -1,0 +1,14 @@
+:root {
+  --background: #202020;
+  --green-accent: #3DDC84;
+  --blue-accent: #4285F4;
+  --red-accent: #EE3465;
+  --text-main: #FFFFFF;
+}
+
+body {
+  background: var(--background);
+}
+
+@import url('./vendor/normalize.css');
+@import url('./vendor/fonts/inter.css');

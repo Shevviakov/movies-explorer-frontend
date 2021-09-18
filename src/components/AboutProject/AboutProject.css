@@ -1,0 +1,60 @@
+.about-project__facts {
+  margin: 70px 0 110px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px 40px;
+  list-style: none;
+}
+
+.about-project__fact {
+  margin: 0;
+  padding: 0;
+}
+
+.about-project__fact_title {
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+
+.about-project__fact_subtitle {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.about-project__diagram {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-auto-flow: row;
+  gap: 14px 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-project__time {
+  margin: 0;
+  padding: 9px 14px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  background: #303030;
+}
+
+.about-project__time_backend {
+  background: var(--green-accent);
+}
+
+.about-project__diagram-subscription {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #8B8B8B;
+}
