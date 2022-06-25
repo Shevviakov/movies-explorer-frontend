@@ -1,18 +1,80 @@
 .header {
+  position: relative;
+  z-index: 1000;
   width: 100%;
   box-sizing: border-box;
   height: 74px;
+  margin-bottom: -74px;
   padding: 0 70px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   background-color: transparent;
 }
 
+@media screen and (max-width: 1000px) {
+  .header {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    padding: 0 14px;
+  }
+}
+
 .header__logo {
+  display: block;
+  margin-right: auto;
   width: 38px;
   height: 38px;
-  display: block;
+  transition: opacity var(--hover-duration) linear;
+}
+
+.header__logo:hover {
+  opacity: var(--hover-opacity);
+}
+
+.header__link {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 600px) {
+  .header__link {
+    font-size: 10px;
+    line-height: 16px;
+  }
+}
+
+.header__sign-up-btn {
+  margin-right: 30px;
+  color: var(--text-main);
+}
+
+@media screen and (max-width: 600px) {
+  .header__sign-up-btn {
+    margin-right: 14px;
+  }
+}
+
+.header__sign-in-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  background-color: var(--green-accent);
+  border-radius: 3px;
+  color: var(--text-black);
+}
+
+@media screen and (max-width: 600px) {
+  .header__sign-in-btn {
+    padding: 5px 12px;
+  }
 }

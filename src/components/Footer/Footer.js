@@ -7,7 +7,6 @@ export default function Footer(props) {
     <footer className="footer">
       <p className="footer__about-project">Учебный проект Яндекс.Практикум х BeatFilm.</p>
       <div className="footer__container" >
-        <p className="footer__copyright">© {new Date().getFullYear()}</p>
         <nav className="footer__navigation-list">
           <li className="footer__navigation-item">
             <a className="footer__navigation-link" href="https://practicum.yandex.ru/">Яндекс.Практикум</a>
@@ -19,6 +18,7 @@ export default function Footer(props) {
             <a className="footer__navigation-link" href="https://facebook.com">Facebook</a>
           </li>
         </nav>
+        <p className="footer__copyright">© {new Date().getFullYear()}</p>
       </div>
     </footer>
   );

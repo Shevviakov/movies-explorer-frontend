@@ -4,6 +4,20 @@
   padding-bottom: 100px;
 }
 
+@media screen and (max-width: 1000px) {
+  .techs {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+
 .techs__title {
   display: block;
   margin: 0;
@@ -16,6 +30,22 @@
   line-height: 58px;
   text-align: center;
   letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 1000px) {
+  .techs__title {
+    margin-top: 80px;
+    margin-bottom: 22px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs__title {
+    font-size: 30px;
+    line-height: 36px;
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
 }
 
 .techs__subtitle {
@@ -31,10 +61,28 @@
   letter-spacing: -0.04em;
 }
 
+@media screen and (max-width: 1000px) {
+  .techs__subtitle {
+    margin-bottom: 83px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs__subtitle {
+    margin-bottom: 50px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
 .techs__tech-list {
   margin: 0;
-  padding: 0;
+  padding: 0 40px;
   max-width: 100%;
+  box-sizing: border-box;
   display: grid;
   gap: 10px;
   list-style: none;
@@ -43,9 +91,14 @@
   grid-auto-rows: 60px;
 }
 
+@media screen and (max-width: 1000px) {
+  .techs__tech-list {
+    grid-template-columns: repeat(auto-fit, 84px);
+    grid-auto-rows: 57px;
+  }
+}
+
 .techs__tech-item {
-  width: 90px;
-  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,4 +109,11 @@
   line-height: 17px;
   text-align: center;
   letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 1000px) {
+  .techs__tech-item {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

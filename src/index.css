@@ -4,10 +4,15 @@
   --blue-accent: #4285F4;
   --red-accent: #EE3465;
   --text-main: #FFFFFF;
+  --text-black: #000000;
+
+  --hover-duration: 0.15s;
+  --hover-opacity: 0.8;
 }
 
 body {
   background: var(--background);
+  min-width: 320px;
 }
 
 @import url('./vendor/normalize.css');
