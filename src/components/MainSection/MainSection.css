@@ -25,7 +25,7 @@
   box-sizing: border-box;
   margin: 0;
   width: 100%;
-  min-height: 50px;
+  min-height: 51px;
   font-weight: normal;
   font-size: 22px;
   line-height: 27px;
@@ -38,6 +38,5 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
-    min-height: 51px;
   }
 }

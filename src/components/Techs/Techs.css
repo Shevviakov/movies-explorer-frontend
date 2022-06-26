@@ -80,7 +80,7 @@
 
 .techs__tech-list {
   margin: 0;
-  padding: 0 40px;
+  padding: 0;
   max-width: 100%;
   box-sizing: border-box;
   display: grid;
@@ -95,6 +95,12 @@
   .techs__tech-list {
     grid-template-columns: repeat(auto-fit, 84px);
     grid-auto-rows: 57px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs__tech-list {
+    padding: 0 40px;
   }
 }
 

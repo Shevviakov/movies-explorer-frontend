@@ -53,12 +53,13 @@
   content: "";
   display: block;
   border-top: 1px solid #424242;
-  margin: 19px 0;
+  margin: 20px 0;
 }
 
 @media screen and (max-width: 1000px) {
   .portfolio__item:not(:last-of-type)::after {
     border-top-color: #E6E6E6;
+    margin: 19px 0;
   }
 }
 
