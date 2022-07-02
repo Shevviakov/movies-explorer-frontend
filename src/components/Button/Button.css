@@ -1,4 +1,5 @@
 .button {
+  box-sizing: border-box;
   text-align: center;
   vertical-align: middle;
   padding: 0 20px;
@@ -10,9 +11,9 @@
   font-size: 12px;
   line-height: 16px;
   cursor: pointer;
-  transition: opacity 0.1s linear;
+  transition: opacity var(--hover-duration) linear;
 }
 
 .button:hover {
-  opacity: 0.8;
+  opacity: var(--hover-btn-opacity);
 }

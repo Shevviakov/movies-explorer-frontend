@@ -26,7 +26,7 @@
   font-size: 13px;
   line-height: 16px;
   text-align: center;
-  color: #8B8B8B;
+  color: var(--text-grey);
 }
 
 @media screen and (max-width: 600px) {
@@ -44,7 +44,7 @@
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  border-top: 1px solid #424242;
+  border-top: 1px solid var(--line-grey);
 }
 
 @media screen and (max-width: 600px) {
@@ -118,6 +118,6 @@
   .footer__copyright {
     font-size: 12px;
     line-height: 15px;
-    color: #8B8B8B;
+    color: var(--text-grey);
   }
 }

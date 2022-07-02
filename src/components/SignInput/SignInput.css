@@ -1,0 +1,46 @@
+.signinput {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.signinput__label {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--text-grey);
+}
+
+.signinput__input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 46px;
+    padding: 15px;
+    background: #2F2F2F;
+    border-radius: 8px;
+    outline: none;
+    border: 0;
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--text-main);
+}
+
+.signinput__input_error {
+    color: #EE3465;
+}
+
+.signinput__error {
+    font-size: 10px;
+    line-height: 12px;
+    margin-top: 9px;
+    visibility: hidden;
+    color: #EE3465;
+}
+
+.signinput__error_active {
+    visibility: visible;
+}
