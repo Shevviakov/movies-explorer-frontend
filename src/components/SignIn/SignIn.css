@@ -1,0 +1,10 @@
+.signin__form {
+    width: 100%;
+    min-height: 333px;
+}
+
+@media screen and (max-width: 600px) {
+    .signin__form {
+        min-height: 274px;
+    }
+}

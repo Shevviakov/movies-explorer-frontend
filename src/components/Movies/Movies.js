@@ -31,17 +31,16 @@ export default function Movies(props) {
                     <MoviesCard title="В погоне за Бенкси" img={img3} duration={102} ></MoviesCard>
                     <MoviesCard title="Баския: Взрыв реальности" img={img4} duration={81} ></MoviesCard>
                     <MoviesCard title="Бег это свобода" img={img5} duration={104} ></MoviesCard>
-                    {/* 
-                <MoviesCard title="Книготорговцы" img={img6} duration={97} isLiked></MoviesCard>
-                <MoviesCard title="Когда я думаю о Германии ночью" img={img7} duration={116} ></MoviesCard>
-                <MoviesCard title="Gimme Danger: История Игги и The Stooges" img={img8} duration={119} ></MoviesCard> 
-                */}
-                    {/* 
-                <MoviesCard title="Дженис: Маленькая девочка грустит" img={img9} duration={102} isLiked></MoviesCard>
-                <MoviesCard title="Соберись перед прыжком" img={img10} duration={70} isLiked></MoviesCard>
-                <MoviesCard title="Пи Джей Харви: A dog called money" img={img11} duration={64} ></MoviesCard>
-                <MoviesCard title="По волнам: Искусство звука в кино" img={img12} duration={67} ></MoviesCard> 
-                */}
+
+                    <MoviesCard title="Книготорговцы" img={img6} duration={97} isLiked></MoviesCard>
+                    <MoviesCard title="Когда я думаю о Германии ночью" img={img7} duration={116} ></MoviesCard>
+                    <MoviesCard title="Gimme Danger: История Игги и The Stooges" img={img8} duration={119} ></MoviesCard>
+
+                    <MoviesCard title="Дженис: Маленькая девочка грустит" img={img9} duration={102} isLiked></MoviesCard>
+                    <MoviesCard title="Соберись перед прыжком" img={img10} duration={70} isLiked></MoviesCard>
+                    <MoviesCard title="Пи Джей Харви: A dog called money" img={img11} duration={64} ></MoviesCard>
+                    <MoviesCard title="По волнам: Искусство звука в кино" img={img12} duration={67} ></MoviesCard>
+
                 </MoviesCardList>
                 <LoadMore />
             </main>

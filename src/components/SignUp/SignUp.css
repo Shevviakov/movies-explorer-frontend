@@ -1,3 +1,10 @@
 .signup__form {
     width: 100%;
+    min-height: 333px;
+}
+
+@media screen and (max-width: 600px) {
+    .signup__form {
+        min-height: 274px;
+    }
 }

@@ -7,6 +7,19 @@
     align-items: center;
 }
 
+@media screen and (max-width: 1000px) {
+    .signbase {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .signbase {
+        width: 260px;
+        justify-content: flex-start;
+    }
+}
+
 .signbase__header {
     display: flex;
     width: 100%;
@@ -14,8 +27,20 @@
     align-items: flex-start;
 }
 
+@media screen and (max-width: 600px) {
+    .signbase__header {
+        align-items: center;
+    }
+}
+
 .signbase__logo {
     margin: 70px 0 40px;
+}
+
+@media screen and (max-width: 600px) {
+    .signbase__logo {
+        margin: 56px 0 50px;
+    }
 }
 
 .signbase__title {
@@ -27,9 +52,27 @@
     line-height: 29px;
 }
 
+@media screen and (max-width: 600px) {
+    .signbase__title {
+        margin-bottom: 80px;
+    }
+}
+
 .signbase__footer {
     width: 100%;
-    margin-top: auto;
+    margin: auto 0 70px;
+}
+
+@media screen and (max-width: 1000px) {
+    .signbase__footer {
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .signbase__footer {
+        margin: auto 0 30px;
+    }
 }
 
 .signbase__submit-btn {
@@ -40,12 +83,26 @@
     line-height: 17px;
 }
 
+@media screen and (max-width: 600px) {
+    .signbase__submit-btn {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
 .signbase__footer-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 16px 0 70px;
+    margin: 0;
+    margin-top: 16px;
+}
+
+@media screen and (max-width: 600px) {
+    .signbase__footer-container {
+        margin-top: 14px;
+    }
 }
 
 .signbase__footer-text {
@@ -57,8 +114,23 @@
     color: var(--text-grey);
 }
 
+
+@media screen and (max-width: 600px) {
+    .signbase__footer-text {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
 .signbase__footer-link {
     font-size: 14px;
     line-height: 17px;
     color: var(--blue-accent);
+}
+
+@media screen and (max-width: 600px) {
+    .signbase__footer-link {
+        font-size: 12px;
+        line-height: 15px;
+    }
 }

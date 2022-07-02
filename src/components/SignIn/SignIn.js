@@ -13,16 +13,18 @@ export default function SignIn(props) {
             footerLinkUrl="/signup"
             footerLinkText="Регистрация"
         >
-            <SignInput
-                type="email"
-                labelText="E-mail"
-                errorMsg=""
-            />
-            <SignInput
-                type="password"
-                labelText="Пароль"
-                errorMsg=""
-            />
+            <form className="signin__form">
+                <SignInput
+                    type="email"
+                    labelText="E-mail"
+                    errorMsg=""
+                />
+                <SignInput
+                    type="password"
+                    labelText="Пароль"
+                    errorMsg=""
+                />
+            </form>
         </SignBase>
     )
 }
