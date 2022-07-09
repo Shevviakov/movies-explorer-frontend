@@ -2,6 +2,7 @@
     min-height: 100vh;
     width: 396px;
     margin: 0 auto 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,6 +56,17 @@
 @media screen and (max-width: 600px) {
     .signbase__title {
         margin-bottom: 80px;
+    }
+}
+
+.signbase__content {
+    width: 100%;
+    min-height: 333px;
+}
+
+@media screen and (max-width: 600px) {
+    .signbase__content {
+        min-height: 274px;
     }
 }
 

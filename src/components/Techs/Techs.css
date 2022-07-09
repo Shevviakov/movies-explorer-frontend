@@ -15,6 +15,13 @@
   .techs {
     padding-top: 70px;
     padding-bottom: 70px;
+    background: initial;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs__section-title {
+    border-color: #000000;
   }
 }
 

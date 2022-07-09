@@ -6,6 +6,7 @@ import './Techs.css';
 export default function Techs(props) {
   return (
     <MainSection className="techs"
+      titleClassName="techs__section-title"
       title="Технологии"
     >
       <h3 className="techs__title">7 технологий</h3>

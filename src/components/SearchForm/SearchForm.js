@@ -8,7 +8,7 @@ export default function SearchForm(props) {
     return (
         <form className="searchform">
             <label className="searchform__input-container">
-                <input className="searchform__input" placeholder="Фильм"></input>
+                <input className="searchform__input" placeholder="Фильм" required></input>
                 <Button className="searchform__input-submit" type="submit">Поиск</Button>
             </label>
             <FilterCheckbox value="Короткометражки" checked={false} />
