@@ -1,0 +1,132 @@
+.techs {
+  background: #272727;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+@media screen and (max-width: 1000px) {
+  .techs {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    background: initial;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs__section-title {
+    border-color: #000000;
+  }
+}
+
+.techs__title {
+  display: block;
+  margin: 0;
+  padding: 0;
+  max-width: 600px;
+  margin-top: 90px;
+  margin-bottom: 26px;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 1000px) {
+  .techs__title {
+    margin-top: 80px;
+    margin-bottom: 22px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs__title {
+    font-size: 30px;
+    line-height: 36px;
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+}
+
+.techs__subtitle {
+  display: block;
+  margin: 0;
+  margin-bottom: 100px;
+  padding: 0;
+  max-width: 460px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 1000px) {
+  .techs__subtitle {
+    margin-bottom: 83px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs__subtitle {
+    margin-bottom: 50px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
+.techs__tech-list {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, 90px);
+  grid-auto-rows: 60px;
+}
+
+@media screen and (max-width: 1000px) {
+  .techs__tech-list {
+    grid-template-columns: repeat(auto-fit, 84px);
+    grid-auto-rows: 57px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs__tech-list {
+    padding: 0 40px;
+  }
+}
+
+.techs__tech-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #303030;
+  border-radius: 10px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 1000px) {
+  .techs__tech-item {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

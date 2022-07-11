@@ -1,0 +1,6 @@
+.logo-btn {
+    display: block;
+    width: 38px;
+    height: 38px;
+    transition: opacity var(--hover-duration) linear;
+}

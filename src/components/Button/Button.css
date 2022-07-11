@@ -1,0 +1,19 @@
+.button {
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0 20px;
+  background: var(--blue-accent);
+  color: var(--text-main);
+  border: 0;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  cursor: pointer;
+  transition: opacity var(--hover-duration) linear;
+}
+
+.button:hover {
+  opacity: var(--hover-btn-opacity);
+}
