@@ -5,17 +5,18 @@ import './Header.css';
 
 import Navigation from '../Navigation/Navigation';
 import LogoButton from '../LogoButton/LogoButton';
+import { AppContext } from '../../contexts/AppContext';
 
 export default function Header(props) {
-  let loggedIn = true
+  const context = React.useContext(AppContext)
   return (
     <header className={`header ${props.className || ''}`}>
       <LogoButton className="header__logo" />
       {
-        loggedIn ? <Navigation active /> :
+        context.loggedIn ? <Navigation active /> :
           <>
-            <NavLink to="/sign-up" className="header__link header__sign-up-btn" >Регистрация</NavLink>
-            <NavLink to="/sign-in" className="header__link">
+            <NavLink to="/signup" className="header__link header__sign-up-btn" >Регистрация</NavLink>
+            <NavLink to="/signin" className="header__link">
               <Button className="header__link header__sign-in-btn">Войти</Button>
             </NavLink>
           </>

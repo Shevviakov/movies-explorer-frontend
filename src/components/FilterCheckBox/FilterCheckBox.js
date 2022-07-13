@@ -1,8 +1,8 @@
 import React from "react";
 
-import './FilterCheckbox.css'
+import './FilterCheckBox.css'
 
-export default function FilterCheckbox(props) {
+export default function FilterCheckBox(props) {
     return (
         <label className="filter-checkbox">
             <input className="filter-checkbox__invisible-checkbox" type="checkbox" />

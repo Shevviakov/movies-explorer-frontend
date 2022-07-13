@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../Button/Button";
-import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import FilterCheckBox from "../FilterCheckBox/FilterCheckBox";
 
 import './SearchForm.css'
 
@@ -11,7 +11,7 @@ export default function SearchForm(props) {
                 <input className="searchform__input" placeholder="Фильм" required></input>
                 <Button className="searchform__input-submit" type="submit">Поиск</Button>
             </label>
-            <FilterCheckbox value="Короткометражки" checked={false} />
+            <FilterCheckBox value="Короткометражки" checked={false} />
         </form>
     )
 }

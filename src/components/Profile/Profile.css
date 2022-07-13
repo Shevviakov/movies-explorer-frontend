@@ -1,6 +1,6 @@
 .profile {
     box-sizing: border-box;
-    height: 100vh;
+    min-height: 100vh;
     padding: 74px 0 70px;
     display: flex;
     flex-direction: column;
@@ -38,31 +38,47 @@
     box-sizing: border-box;
     margin-top: auto;
     width: 410px;
-    min-height: 330px;
+    min-height: 346px;
     flex-direction: column;
     align-items: center;
 }
 
 @media screen and (max-width: 1000px) {
     .profile__form {
-        margin-top: 96px;
+        margin-top: 80px;
         min-height: 320px;
     }
 }
 
 @media screen and (max-width: 600px) {
     .profile__form {
-        margin-top: 80px;
+        margin-top: 64px;
         width: 260px;
         min-height: initial;
         flex-grow: 1;
     }
 }
 
+.profile__input-field-container {
+    box-sizing: border-box;
+    min-width: 100%;
+    padding: 16px 0 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.profile__input-field-container:first-of-type {
+    padding: 0 0 16px;
+    border-bottom: solid 1px var(--line-grey);
+}
+
 .profile__input-container {
     box-sizing: border-box;
     width: 100%;
-    padding: 16px 0;
+    padding: 0;
     margin: 0;
     display: flex;
     flex-direction: row;
@@ -70,14 +86,17 @@
     align-items: center;
 }
 
-
-
-.profile__input-container:not(:last-of-type) {
-    padding-top: 0;
+.profile__input-err-msg {
+    padding: 2px 0;
+    font-size: 10px;
+    line-height: 12px;
+    visibility: hidden;
+    text-align: center;
+    color: var(--red-accent);
 }
 
-.profile__input-container:first-of-type {
-    border-bottom: solid 1px var(--line-grey);
+.profile__input-err-msg_active {
+    visibility: visible;
 }
 
 .profile__input-label {
@@ -100,6 +119,10 @@
     color: #FFFFFF;
 }
 
+.profile__input_error {
+    color: var(--red-accent);
+}
+
 .profile__input:focus {
     outline: 0;
 }
@@ -109,6 +132,26 @@
     flex-direction: column;
     align-items: center;
     margin-top: auto;
+}
+
+.profile__api-msg {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    color: var(--text-main);
+    visibility: hidden;
+}
+
+.profile__api-msg_error {
+    color: var(--red-accent);
+}
+
+.profile__api-msg_active {
+    visibility: visible;
 }
 
 
@@ -129,6 +172,15 @@
 .profile__btn {
     font-size: 12px;
     line-height: 15px;
+}
+
+.profile__btn:disabled {
+    color: var(--text-grey);
+    cursor: default;
+}
+
+.profile__btn:disabled:hover {
+    opacity: 1;
 }
 
 .profile__logout {
