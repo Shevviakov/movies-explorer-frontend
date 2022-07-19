@@ -20,6 +20,7 @@ body {
 
 .link {
   text-decoration: none;
+  color: var(--text-main);
   transition: opacity var(--hover-duration) linear;
   cursor: pointer;
 }

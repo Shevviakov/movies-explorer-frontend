@@ -68,16 +68,86 @@ class Api {
             .then(this._okResp, this._errResp)
     };
 
+    _getMovies() {
+        return fetch(`${this._baseUrl}/movies/`, {
+            credentials: 'include',
+        })
+            .then(this._okResp, this._errResp)
+    }
+
+    addMovie({
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image,
+        trailer,
+        nameEN,
+        nameRU,
+        thumbnail,
+        movieId,
+    }) {
+        return fetch(`${this._baseUrl}/movies/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                country,
+                director,
+                duration,
+                year,
+                description,
+                image,
+                trailer,
+                nameEN,
+                nameRU,
+                thumbnail,
+                movieId,
+            })
+        })
+            .then(this._okResp, this._errResp)
+            .then(movie => {
+                this.Movies.push(movie)
+                return Promise.resolve(movie)
+            })
+    }
+
+    deleteMovie({ movieId }) {
+        return fetch(`${this._baseUrl}/movies/${movieId}`, {
+            method: 'DELETE',
+            credentials: 'include',
+        })
+            .then(this._okResp, this._errResp)
+            .then((movie) => {
+                if (this.Movies) {
+                    this.Movies = this.Movies.filter((value) => { return value.movieId !== movie.movieId })
+                }
+                return Promise.resolve(movie)
+            })
+    }
+
+    getMovies() {
+        const promise = new Promise((resolve, reject) => {
+            if (this.Movies) {
+                resolve(this.Movies)
+            } else {
+                this._getMovies()
+                    .then(data => {
+                        this.Movies = data
+                        resolve(data)
+                    })
+                    .catch(err => reject(err))
+            }
+        })
+        return promise
+    }
 }
 
 const apiObj = new Api({
     baseUrl: `https://api.sheviakov.nomoredomains.monster`,
-    getHeaders: () => {
-        return {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-            'Content-Type': 'application/json'
-        }
-    }
 });
 
 export default apiObj;

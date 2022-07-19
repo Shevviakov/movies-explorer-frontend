@@ -1,4 +1,6 @@
 .searchform {
+    display: flex;
+    flex-direction: column;
     box-sizing: border-box;
     position: relative;
     padding: 144px 70px 54px;
@@ -109,4 +111,19 @@
         height: 44px;
         margin: 0 6px;
     }
+}
+
+.searchform__error {
+    box-sizing: border-box;
+    font-size: 10px;
+    line-height: 12px;
+    margin: 3px 0 0;
+    align-self: center;
+    visibility: hidden;
+    text-align: center;
+    color: var(--red-accent);
+}
+
+.searchform__error_active {
+    visibility: visible;
 }

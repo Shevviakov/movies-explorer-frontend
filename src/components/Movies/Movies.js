@@ -1,48 +1,172 @@
 import React from "react";
+
+import moviesApi from '../../utils/MoviesApi'
+import mainApi from '../../utils/MainApi'
+import utils from '../../utils/AppUtils'
+
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import SearchForm from "../SearchForm/SearchForm";
 
-import img1 from '../../images/movies/1.jpg'
-import img2 from '../../images/movies/2.jpg'
-import img3 from '../../images/movies/3.jpg'
-import img4 from '../../images/movies/4.jpg'
-import img5 from '../../images/movies/5.jpg'
-import img6 from '../../images/movies/6.jpg'
-import img7 from '../../images/movies/7.jpg'
-import img8 from '../../images/movies/8.jpg'
-import img9 from '../../images/movies/9.jpg'
-import img10 from '../../images/movies/10.jpg'
-import img11 from '../../images/movies/11.jpg'
-import img12 from '../../images/movies/12.jpg'
 import LoadMore from "../LoadMore/LoadMore";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Preloader from '../Preloader/Preloader'
+
+import './Movies.css'
 
 export default function Movies(props) {
+    const [movies, setMovies] = React.useState(null)
+    const [favoriteMovies, setFavoriteMovies] = React.useState(null)
+    const [loading, setLoading] = React.useState(false)
+    const [apiError, setApiError] = React.useState("")
+    const [cardsCount, setCardsCount] = React.useState(utils.getInitialCardsCount())
+
+    React.useEffect(() => {
+        function checkCardsCount() {
+            if (cardsCount < utils.getInitialCardsCount()) {
+                setCardsCount(utils.getInitialCardsCount())
+            }
+        }
+        let timer
+        function resizeHandler() {
+            clearTimeout(timer)
+            timer = setTimeout(checkCardsCount, 200)
+        }
+
+
+        window.addEventListener('resize', resizeHandler);
+
+        return () => window.removeEventListener('resize', resizeHandler);
+    }, [])
+
+    React.useEffect(() => {
+        if (!movies) { return }
+        movies.forEach(m => { m.isLiked = m.id in favoriteMovies })
+        setMovies([...movies])
+    }, [favoriteMovies])
+
+
+    function updateFavorites() {
+        mainApi.getMovies()
+            .then(favoriteMovies => {
+                const newFavoriteMovies = favoriteMovies.reduce((prev, cur) => {
+                    prev[cur.movieId] = cur
+                    return prev
+                }, {})
+                setFavoriteMovies(newFavoriteMovies)
+            })
+            .catch(err => {
+                console.log(`Can't update favorite movies ${err}`)
+            })
+    }
+
+    function transformFavoriteMovies(favoriteMovies) {
+        return favoriteMovies.reduce((prev, cur) => {
+            prev[cur.movieId] = cur
+            return prev
+        }, {})
+    }
+
+
+    function addLike(movie) {
+        const {
+            country,
+            director,
+            duration,
+            year,
+            description,
+            image: { url: imagePath, formats: { thumbnail: { url: thumbnailPath } } },
+            trailerLink: trailer,
+            nameEN,
+            nameRU,
+            id: movieId,
+        } = movie
+
+        const image = moviesApi.getImgUrl(imagePath)
+        const thumbnail = moviesApi.getImgUrl(thumbnailPath)
+
+        return mainApi.addMovie({
+            country,
+            director,
+            duration,
+            year,
+            description,
+            image,
+            trailer,
+            nameEN,
+            nameRU,
+            thumbnail,
+            movieId,
+        })
+    }
+
+    function removeLike(movie) {
+        return mainApi.deleteMovie({ movieId: movie.id })
+    }
+
+    function onSearchFilms(state) {
+        setLoading(true)
+
+        const errHandler = (err) => {
+            console.log(err)
+            setLoading(false)
+            setApiError("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз")
+        }
+
+        const successHandler = (foundMovies) => {
+            setCardsCount(utils.getInitialCardsCount)
+            setLoading(false)
+            setMovies(foundMovies)
+        }
+
+        if (favoriteMovies === null) {
+            Promise.all([
+                moviesApi.findMovies(state.filmTitle, state.shortFilms),
+                mainApi.getMovies()
+            ]).then(([foundMovies, favoriteMovies]) => {
+                setFavoriteMovies(transformFavoriteMovies(favoriteMovies))
+                successHandler(foundMovies)
+            })
+                .catch(errHandler)
+        } else {
+            moviesApi.findMovies(state.filmTitle, state.shortFilms)
+                .then(successHandler)
+                .catch(errHandler)
+        }
+    }
+
+    function onLikeClick(movie) {
+        const handler = movie.id in favoriteMovies ? removeLike : addLike
+        handler(movie).then(() => updateFavorites())
+            .catch(err => console.log(err))
+    }
+
+    function onLoadMore() {
+        setCardsCount(cardsCount + utils.getCardsCountIncrement())
+    }
+
     return (
         <>
             <Header />
             <main className="movies">
-                <SearchForm />
-                <MoviesCardList>
-                    <MoviesCard title="33 слова о дизайне" img={img1} duration={107} isLiked></MoviesCard>
-                    <MoviesCard title="Киноальманах «100 лет дизайна»" img={img2} duration={63} ></MoviesCard>
-                    <MoviesCard title="В погоне за Бенкси" img={img3} duration={102} ></MoviesCard>
-                    <MoviesCard title="Баския: Взрыв реальности" img={img4} duration={81} ></MoviesCard>
-                    <MoviesCard title="Бег это свобода" img={img5} duration={104} ></MoviesCard>
-
-                    <MoviesCard title="Книготорговцы" img={img6} duration={97} isLiked></MoviesCard>
-                    <MoviesCard title="Когда я думаю о Германии ночью" img={img7} duration={116} ></MoviesCard>
-                    <MoviesCard title="Gimme Danger: История Игги и The Stooges" img={img8} duration={119} ></MoviesCard>
-
-                    <MoviesCard title="Дженис: Маленькая девочка грустит" img={img9} duration={102} isLiked></MoviesCard>
-                    <MoviesCard title="Соберись перед прыжком" img={img10} duration={70} isLiked></MoviesCard>
-                    <MoviesCard title="Пи Джей Харви: A dog called money" img={img11} duration={64} ></MoviesCard>
-                    <MoviesCard title="По волнам: Искусство звука в кино" img={img12} duration={67} ></MoviesCard>
-
-                </MoviesCardList>
-                <LoadMore />
+                <SearchForm onSearchFilms={onSearchFilms} />
+                {loading ? <Preloader /> :
+                    apiError ? <span className="movies__error">{apiError}</span> :
+                        (movies && !movies.length) ? <span className="movies__tooltip">Ничего не найдено</span> :
+                            (
+                                movies && <MoviesCardList>
+                                    {movies.slice(0, cardsCount).map((movie) =>
+                                        <MoviesCard
+                                            key={movie.id}
+                                            movie={movie}
+                                            onLike={onLikeClick}
+                                        />
+                                    )}
+                                </MoviesCardList>
+                            )
+                }
+                {movies && movies.length > cardsCount && <LoadMore onClick={onLoadMore} />}
             </main>
             <Footer />
         </>

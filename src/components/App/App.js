@@ -20,7 +20,6 @@ import { AppContext } from '../../contexts/AppContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-  const [movies, setMovies] = React.useState([])
   const [currentUser, setCurrentUser] = React.useState(null)
   const [loggedIn, setLoggedIn] = React.useState(null);
 

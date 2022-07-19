@@ -5,13 +5,47 @@ import FilterCheckBox from "../FilterCheckBox/FilterCheckBox";
 import './SearchForm.css'
 
 export default function SearchForm(props) {
+    const [errorMsg, setErrorMsg] = React.useState("")
+    const [state, setState] = React.useState({
+        filmTitle: "",
+        shortFilms: false,
+    })
+
+    function handleChange(e) {
+        const { name, type, checked, value } = e.target
+        setState({ ...state, [name]: (type === 'checkbox' ? checked : value) })
+    }
+
+    function onSearch(e) {
+        e.preventDefault()
+        if (!state.filmTitle) {
+            setErrorMsg("Нужно ввести ключевое слово")
+            return
+        }
+        setErrorMsg("")
+        props.onSearchFilms(state)
+    }
+
+    React.useEffect(() => {
+        if (state.filmTitle) {
+            props.onSearchFilms(state)
+        }
+    }, [state.shortFilms])
+
     return (
-        <form className="searchform">
+        <form className="searchform" onSubmit={onSearch} noValidate>
             <label className="searchform__input-container">
-                <input className="searchform__input" placeholder="Фильм" required></input>
+                <input
+                    className="searchform__input"
+                    placeholder="Фильм"
+                    id="filmTitle"
+                    name="filmTitle"
+                    onChange={handleChange}
+                ></input>
                 <Button className="searchform__input-submit" type="submit">Поиск</Button>
             </label>
-            <FilterCheckBox value="Короткометражки" checked={false} />
+            <span className={`searchform__error ${errorMsg ? "searchform__error_active" : ""}`}>{errorMsg || "placeholder"}</span>
+            <FilterCheckBox title="Короткометражки" id="shortFilms" name="shortFilms" onChange={handleChange} checked={state.shortFilms} />
         </form>
     )
 }
