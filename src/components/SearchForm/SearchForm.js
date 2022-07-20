@@ -6,31 +6,29 @@ import './SearchForm.css'
 
 export default function SearchForm(props) {
     const [errorMsg, setErrorMsg] = React.useState("")
-    const [state, setState] = React.useState({
+    const [state, setState] = React.useState(props.state || {
         filmTitle: "",
         shortFilms: false,
     })
 
     function handleChange(e) {
         const { name, type, checked, value } = e.target
-        setState({ ...state, [name]: (type === 'checkbox' ? checked : value) })
+        const newState = { ...state, [name]: (type === 'checkbox' ? checked : value) }
+        setState(newState)
+        if (type === 'checkbox') {
+            props.onSearchFilms(newState)
+        }
     }
 
     function onSearch(e) {
         e.preventDefault()
-        if (!state.filmTitle) {
+        if (!props.saved && !state.filmTitle) {
             setErrorMsg("Нужно ввести ключевое слово")
             return
         }
         setErrorMsg("")
         props.onSearchFilms(state)
     }
-
-    React.useEffect(() => {
-        if (state.filmTitle) {
-            props.onSearchFilms(state)
-        }
-    }, [state.shortFilms])
 
     return (
         <form className="searchform" onSubmit={onSearch} noValidate>
@@ -40,6 +38,7 @@ export default function SearchForm(props) {
                     placeholder="Фильм"
                     id="filmTitle"
                     name="filmTitle"
+                    value={state.filmTitle}
                     onChange={handleChange}
                 ></input>
                 <Button className="searchform__input-submit" type="submit">Поиск</Button>

@@ -15,13 +15,12 @@ export default function SignInput(props) {
 
     React.useEffect(() => {
         setValid({ ...valid, [name]: inputEl.current.validity.valid })
-    }, [])
+    }, [valid, name, inputEl, setValid])
 
     function handleChange(e) {
         const { name, value, validationMessage } = e.target
         setState({ ...state, [name]: value })
         setErrorMsgs({ ...errorMsgs, [name]: validationMessage })
-        setValid({ ...valid, [name]: e.target.validity.valid })
     }
 
     return (
