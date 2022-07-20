@@ -9,7 +9,7 @@ export default function ErrNotFound(props) {
         <main className="not-found">
             <h1 className="not-found__title">404</h1>
             <h2 className="not-found__subtitle">Страница не найдена</h2>
-            <Link className="link not-found__back" onClick={history.goBack}>Назад</Link>
+            <Link className="link not-found__back" to="#" onClick={history.goBack}>Назад</Link>
         </main>
     )
 }

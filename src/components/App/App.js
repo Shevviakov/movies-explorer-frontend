@@ -3,7 +3,6 @@ import React from 'react';
 import './App.css';
 
 import mainApi from '../../utils/MainApi';
-import moviesApi from '../../utils/MoviesApi';
 
 import Main from '../Main/Main';
 import { Route, Switch, useHistory } from 'react-router-dom';
@@ -30,12 +29,10 @@ function App() {
       .then((user) => {
         setCurrentUser(user)
         setLoggedIn(true)
-        console.log('User Logged')
       })
       .catch(() => {
         setLoggedIn(false)
         setCurrentUser(null)
-        console.log('User not logged')
       });
   }, [loggedIn]);
 
@@ -66,7 +63,7 @@ function App() {
               <ProtectedRoute exact path="/profile"><Profile onSignOut={onSignOut} onProfileUpdate={onProfileUpdate} /></ProtectedRoute>
               <Route exact path="/signin"><SignIn onSignIn={onSignIn} /></Route>
               <Route exact path="/signup"><SignUp onSignIn={onSignIn} /></Route>
-              <Route exact path="/404"><ErrNotFound /></Route>
+              <Route exact path="*"><ErrNotFound /></Route>
             </Switch>
           }
         </div>

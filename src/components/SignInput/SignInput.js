@@ -21,7 +21,7 @@ export default function SignInput(props) {
         const { name, value, validationMessage } = e.target
         setState({ ...state, [name]: value })
         setErrorMsgs({ ...errorMsgs, [name]: validationMessage })
-        setValid({ ...valid, [name]: e.target.validity.valid })
+        setValid({ ...valid, [name]: inputEl.current.validity.valid })
     }
 
     return (

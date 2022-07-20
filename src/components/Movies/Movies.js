@@ -16,11 +16,23 @@ import Preloader from '../Preloader/Preloader'
 import './Movies.css'
 
 export default function Movies(props) {
-    const [movies, setMovies] = React.useState(null)
+    const [movies, _setMovies] = React.useState(JSON.parse(localStorage.getItem('movies')))
+    const [searchState, _setSearchState] = React.useState(JSON.parse(localStorage.getItem('search')))
     const [favoriteMovies, setFavoriteMovies] = React.useState(null)
     const [loading, setLoading] = React.useState(false)
     const [apiError, setApiError] = React.useState("")
     const [cardsCount, setCardsCount] = React.useState(utils.getInitialCardsCount())
+
+    function setMovies(movies) {
+        localStorage.setItem('movies', JSON.stringify(movies))
+        _setMovies(movies)
+    }
+
+    function setSearchState(state) {
+        localStorage.setItem('search', JSON.stringify(state))
+        _setSearchState(state)
+    }
+
 
     React.useEffect(() => {
         function checkCardsCount() {
@@ -41,7 +53,7 @@ export default function Movies(props) {
     }, [])
 
     React.useEffect(() => {
-        if (!movies) { return }
+        if (!movies || !favoriteMovies) { return }
         movies.forEach(m => { m.isLiked = m.id in favoriteMovies })
         setMovies([...movies])
     }, [favoriteMovies])
@@ -117,6 +129,7 @@ export default function Movies(props) {
         const successHandler = (foundMovies) => {
             setCardsCount(utils.getInitialCardsCount)
             setLoading(false)
+            setSearchState(state)
             setMovies(foundMovies)
         }
 
@@ -125,8 +138,8 @@ export default function Movies(props) {
                 moviesApi.findMovies(state.filmTitle, state.shortFilms),
                 mainApi.getMovies()
             ]).then(([foundMovies, favoriteMovies]) => {
-                setFavoriteMovies(transformFavoriteMovies(favoriteMovies))
                 successHandler(foundMovies)
+                setFavoriteMovies(transformFavoriteMovies(favoriteMovies))
             })
                 .catch(errHandler)
         } else {
@@ -150,7 +163,7 @@ export default function Movies(props) {
         <>
             <Header />
             <main className="movies">
-                <SearchForm onSearchFilms={onSearchFilms} />
+                <SearchForm state={searchState} onSearchFilms={onSearchFilms} />
                 {loading ? <Preloader /> :
                     apiError ? <span className="movies__error">{apiError}</span> :
                         (movies && !movies.length) ? <span className="movies__tooltip">Ничего не найдено</span> :

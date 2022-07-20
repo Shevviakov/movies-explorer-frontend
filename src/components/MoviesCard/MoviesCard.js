@@ -5,10 +5,10 @@ import moviesApi from '../../utils/MoviesApi'
 import './MoviesCard.css'
 
 export default function MoviesCard(props) {
-    const { movie, onLike, saved } = props
+    const { movie, onLike, onDelete, saved } = props
     function openTrailer(e) {
         const classList = e.target.classList
-        if (classList.contains('movies-card__like-btn')) {
+        if (classList.contains('movies-card__btn')) {
             return
         }
         window.open(movie.trailerLink, "_blank", "noopener, noreferrer")
@@ -16,6 +16,10 @@ export default function MoviesCard(props) {
 
     function onLikeHandler() {
         onLike(movie)
+    }
+
+    function onDeleteHandler() {
+        onDelete(movie)
     }
 
     function stringDuration(duration) {
@@ -38,9 +42,9 @@ export default function MoviesCard(props) {
                     <p className="movies-card__title" title={movie.nameRU} >{movie.nameRU}</p>
                     {
                         saved ?
-                            <button className={`link movies-card__like-btn ${movie.isLiked ? "movies-card__like-btn_active" : ""}`} type="button" onClick={onLikeHandler} aria-label="Кнопка лайка карточки" />
+                            <button className="link movies-card__btn movies-card__btn_delete-saved" type="button" onClick={onDeleteHandler} aria-label="Кнопка лайка карточки" />
                             :
-                            <button className={`link movies-card__like-btn ${movie.isLiked ? "movies-card__like-btn_active" : ""}`} type="button" onClick={onLikeHandler} aria-label="Кнопка лайка карточки" />
+                            <button className={`link movies-card__btn movies-card__btn_like ${movie.isLiked ? "movies-card__btn_like-active" : ""}`} type="button" onClick={onLikeHandler} aria-label="Кнопка лайка карточки" />
 
                     }
                 </div>
