@@ -169,7 +169,7 @@ export default function Movies(props) {
                     apiError ? <span className="movies__error">{apiError}</span> :
                         (movies && !movies.length) ? <span className="movies__tooltip">Ничего не найдено</span> :
                             (
-                                movies && favoriteMovies && <MoviesCardList>
+                                movies && <MoviesCardList>
                                     {movies.slice(0, cardsCount).map((movie) =>
                                         <MoviesCard
                                             key={movie.id}

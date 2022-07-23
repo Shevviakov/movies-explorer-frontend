@@ -56,7 +56,6 @@ export default function SavedMovies(props) {
 
     React.useEffect(() => {
         if (favoriteMovies) {
-            console.log(favoriteMovies)
             const searchMovies = favoriteMovies.filter(
                 (movie) =>
                     movie.nameRU.toLowerCase().includes(searchState.filmTitle.toLowerCase())
