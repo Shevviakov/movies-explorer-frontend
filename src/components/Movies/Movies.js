@@ -33,7 +33,7 @@ export default function Movies(props) {
         _setSearchState(state)
     }
 
-
+    // Update cards count on resize
     React.useEffect(() => {
         function checkCardsCount() {
             if (cardsCount < utils.getInitialCardsCount()) {
@@ -52,34 +52,35 @@ export default function Movies(props) {
         return () => window.removeEventListener('resize', resizeHandler);
     }, [])
 
+    // Load saved movies on component mounting if movies exist in localstorage
     React.useEffect(() => {
-        if (!movies || !favoriteMovies) { return }
-        movies.forEach(m => { m.isLiked = m.id in favoriteMovies })
-        setMovies([...movies])
+        if (movies) {
+            mainApi.getMovies()
+                .then(favoriteMovies => {
+                    setFavoriteMovies(favoriteMovies)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }, [])
+
+
+
+    React.useEffect(() => {
+        if (movies && favoriteMovies) {
+            const fMHash = favoriteMovies.reduce((prev, cur) => {
+                prev[cur.movieId] = cur
+                return prev
+            }, {})
+            movies.forEach(m => { m.isLiked = m.id in fMHash })
+            setMovies([...movies])
+        }
     }, [favoriteMovies])
 
-
-    function updateFavorites() {
-        mainApi.getMovies()
-            .then(favoriteMovies => {
-                const newFavoriteMovies = favoriteMovies.reduce((prev, cur) => {
-                    prev[cur.movieId] = cur
-                    return prev
-                }, {})
-                setFavoriteMovies(newFavoriteMovies)
-            })
-            .catch(err => {
-                console.log(`Can't update favorite movies ${err}`)
-            })
+    function onLikeClick(movie) {
+        favoriteMovies.filter(fMovie => fMovie.movieId === movie.id).length ? removeLike(movie) : addLike(movie)
     }
-
-    function transformFavoriteMovies(favoriteMovies) {
-        return favoriteMovies.reduce((prev, cur) => {
-            prev[cur.movieId] = cur
-            return prev
-        }, {})
-    }
-
 
     function addLike(movie) {
         const {
@@ -97,8 +98,7 @@ export default function Movies(props) {
 
         const image = moviesApi.getImgUrl(imagePath)
         const thumbnail = moviesApi.getImgUrl(thumbnailPath)
-
-        return mainApi.addMovie({
+        const fMovie = {
             country,
             director,
             duration,
@@ -110,11 +110,16 @@ export default function Movies(props) {
             nameRU,
             thumbnail,
             movieId,
-        })
+        }
+        return mainApi.addMovie(fMovie)
+            .then(setFavoriteMovies([...favoriteMovies, fMovie]))
+            .catch(err => console.log(err))
     }
 
     function removeLike(movie) {
-        return mainApi.deleteMovie({ movieId: movie.id })
+        mainApi.deleteMovie({ movieId: movie.id })
+            .then(setFavoriteMovies(favoriteMovies.filter((m) => m.movieId !== movie.id)))
+            .catch(err => console.log(err))
     }
 
     function onSearchFilms(state) {
@@ -139,7 +144,7 @@ export default function Movies(props) {
                 mainApi.getMovies()
             ]).then(([foundMovies, favoriteMovies]) => {
                 successHandler(foundMovies)
-                setFavoriteMovies(transformFavoriteMovies(favoriteMovies))
+                setFavoriteMovies(favoriteMovies)
             })
                 .catch(errHandler)
         } else {
@@ -149,11 +154,7 @@ export default function Movies(props) {
         }
     }
 
-    function onLikeClick(movie) {
-        const handler = movie.id in favoriteMovies ? removeLike : addLike
-        handler(movie).then(() => updateFavorites())
-            .catch(err => console.log(err))
-    }
+
 
     function onLoadMore() {
         setCardsCount(cardsCount + utils.getCardsCountIncrement())
@@ -168,7 +169,7 @@ export default function Movies(props) {
                     apiError ? <span className="movies__error">{apiError}</span> :
                         (movies && !movies.length) ? <span className="movies__tooltip">Ничего не найдено</span> :
                             (
-                                movies && <MoviesCardList>
+                                movies && favoriteMovies && <MoviesCardList>
                                     {movies.slice(0, cardsCount).map((movie) =>
                                         <MoviesCard
                                             key={movie.id}

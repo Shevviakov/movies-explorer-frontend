@@ -13,7 +13,8 @@ import Preloader from '../Preloader/Preloader'
 
 export default function SavedMovies(props) {
     const [favoriteMovies, setFavoriteMovies] = React.useState(null)
-    const [searchMovies, setSearchMovies] = React.useState(null)
+    const [searchState, setSearchState] = React.useState(null)
+    const [searchResult, setSearchResult] = React.useState(null)
     const [loading, setLoading] = React.useState(false)
     const [apiError, setApiError] = React.useState("")
     const [cardsCount, setCardsCount] = React.useState(utils.getInitialCardsCount())
@@ -50,14 +51,20 @@ export default function SavedMovies(props) {
     }, [])
 
     function onSearchFilms(state) {
-        if (!favoriteMovies) { return }
-        const searchMovies = favoriteMovies.filter(
-            (movie) =>
-                movie.nameRU.toLowerCase().includes(state.filmTitle.toLowerCase())
-                && (state.shortFilms ? movie.duration <= 40 : true)
-        )
-        setSearchMovies(searchMovies)
+        setSearchState(state)
     }
+
+    React.useEffect(() => {
+        if (favoriteMovies) {
+            console.log(favoriteMovies)
+            const searchMovies = favoriteMovies.filter(
+                (movie) =>
+                    movie.nameRU.toLowerCase().includes(searchState.filmTitle.toLowerCase())
+                    && (searchState.shortFilms ? movie.duration <= 40 : true)
+            )
+            setSearchResult(searchMovies)
+        }
+    }, [searchState])
 
     function onDeleteClick(movie) {
         const { movieId } = movie
@@ -81,7 +88,7 @@ export default function SavedMovies(props) {
                         (favoriteMovies && !favoriteMovies.length) ? <span className="movies__tooltip">У вас нет сохраненных фильмов</span> :
                             (
                                 favoriteMovies && <MoviesCardList>
-                                    {(searchMovies ? searchMovies : favoriteMovies).map((movie) =>
+                                    {(searchResult ? searchResult : favoriteMovies).map((movie) =>
                                         <MoviesCard
                                             key={movie.movieId}
                                             movie={movie}

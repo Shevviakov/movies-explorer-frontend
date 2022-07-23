@@ -68,7 +68,7 @@ class Api {
             .then(this._okResp, this._errResp)
     };
 
-    _getMovies() {
+    getMovies() {
         return fetch(`${this._baseUrl}/movies/`, {
             credentials: 'include',
         })
@@ -129,21 +129,6 @@ class Api {
             })
     }
 
-    getMovies() {
-        const promise = new Promise((resolve, reject) => {
-            if (this.Movies) {
-                resolve(this.Movies)
-            } else {
-                this._getMovies()
-                    .then(data => {
-                        this.Movies = data
-                        resolve(data)
-                    })
-                    .catch(err => reject(err))
-            }
-        })
-        return promise
-    }
 }
 
 const apiObj = new Api({
