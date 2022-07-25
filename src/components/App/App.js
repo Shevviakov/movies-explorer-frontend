@@ -42,6 +42,8 @@ function App() {
   }
 
   function onSignOut() {
+    localStorage.removeItem('movies')
+    localStorage.removeItem('search')
     setLoggedIn(false)
     history.push('/')
   }

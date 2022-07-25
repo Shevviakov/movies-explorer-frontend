@@ -10,14 +10,19 @@ import './SignIn.css'
 export default function SignIn(props) {
 
     const [apiError, setApiError] = React.useState("")
+    const [disabled, setDisabled] = React.useState(false)
 
     function handleSignin(state) {
+        setDisabled(true)
         mainApi.signin(state).then(() => {
             props.onSignIn()
         })
             .catch(err =>
                 setApiError(err)
-            );
+            )
+            .finally(() => {
+                setDisabled(false)
+            });
 
     }
     return (
@@ -29,7 +34,7 @@ export default function SignIn(props) {
             footerLinkText="Регистрация"
             errorMsg={apiError}
             onSubmit={handleSignin}
-
+            disabled={disabled}
         >
             <SignInput
                 id="email"

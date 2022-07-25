@@ -52,6 +52,7 @@ export default function SavedMovies(props) {
 
     function onSearchFilms(state) {
         setSearchState(state)
+        return Promise.resolve()
     }
 
     React.useEffect(() => {

@@ -139,7 +139,7 @@ export default function Movies(props) {
         }
 
         if (favoriteMovies === null) {
-            Promise.all([
+            return Promise.all([
                 moviesApi.findMovies(state.filmTitle, state.shortFilms),
                 mainApi.getMovies()
             ]).then(([foundMovies, favoriteMovies]) => {
@@ -148,13 +148,11 @@ export default function Movies(props) {
             })
                 .catch(errHandler)
         } else {
-            moviesApi.findMovies(state.filmTitle, state.shortFilms)
+            return moviesApi.findMovies(state.filmTitle, state.shortFilms)
                 .then(successHandler)
                 .catch(errHandler)
         }
     }
-
-
 
     function onLoadMore() {
         setCardsCount(cardsCount + utils.getCardsCountIncrement())

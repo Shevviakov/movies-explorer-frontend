@@ -10,7 +10,7 @@ export default function SignBase(props) {
     const [state, setState] = React.useState({})
     const [errorMsgs, setErrorMsgs] = React.useState({})
     const [valid, setValid] = React.useState({})
-    const disabled = Object.values(errorMsgs).some(err => !!err) || Object.values(valid).some(err => !err)
+    const disabled = props.disabled || Object.values(errorMsgs).some(err => !!err) || Object.values(valid).some(err => !err)
 
     function handleSubmit(e) {
         e.preventDefault();

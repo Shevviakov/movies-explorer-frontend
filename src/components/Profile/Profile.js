@@ -1,6 +1,7 @@
 import React from "react";
 
 import mainApi from '../../utils/MainApi'
+import { NAME_PATTERN, NAME_VALIDATION_MESSAGE } from '../../utils/consts'
 
 import Header from "../Header/Header";
 
@@ -10,6 +11,7 @@ import './Profile.css'
 
 export default function Profile(props) {
     const currentUser = React.useContext(CurrentUserContext)
+    const [pending, setPending] = React.useState(false)
     const [state, setState] = React.useState({
         name: currentUser.name,
         email: currentUser.email,
@@ -25,15 +27,20 @@ export default function Profile(props) {
     const [apiMsg, setApiMsg] = React.useState("")
     const [isApiErr, setIsApiErr] = React.useState(false)
 
-    const disabled = Object.values(errorMsgs).some(err => !!err)
+    const disabled = pending || Object.values(errorMsgs).some(err => !!err)
         || Object.values(valid).some(err => !err)
         || (state.name === currentUser.name && state.email === currentUser.email)
 
 
+    const customMsgs = {
+        "name": NAME_VALIDATION_MESSAGE,
+    }
+
     function handleChange(e) {
         const { name, value, validationMessage } = e.target
         setState({ ...state, [name]: value })
-        setErrorMsgs({ ...errorMsgs, [name]: validationMessage })
+        const errMsg = e.target.validity.valid ? "" : customMsgs[name] || validationMessage
+        setErrorMsgs({ ...errorMsgs, [name]: errMsg })
         setValid({ ...valid, [name]: e.target.validity.valid })
     }
 
@@ -49,6 +56,7 @@ export default function Profile(props) {
 
     function onUserEdit(e) {
         e.preventDefault();
+        setPending(true)
         mainApi.updateMe(state)
             .then((user) => {
                 setApiMsg("Данные успешно обновлены")
@@ -59,6 +67,9 @@ export default function Profile(props) {
                 setApiMsg(err)
                 setIsApiErr(true)
                 console.log(err)
+            })
+            .finally(() => {
+                setPending(false)
             })
     }
 
@@ -76,7 +87,7 @@ export default function Profile(props) {
                                 id="name"
                                 name="name"
                                 type="text"
-                                pattern="[- A-Za-zА-Яа-я]+"
+                                pattern={NAME_PATTERN}
                                 required
 
                                 onChange={handleChange}

@@ -5,6 +5,7 @@ import FilterCheckBox from "../FilterCheckBox/FilterCheckBox";
 import './SearchForm.css'
 
 export default function SearchForm(props) {
+    const [pending, setPending] = React.useState(false)
     const [errorMsg, setErrorMsg] = React.useState("")
     const [state, setState] = React.useState(props.state || {
         filmTitle: "",
@@ -16,7 +17,11 @@ export default function SearchForm(props) {
         const newState = { ...state, [name]: (type === 'checkbox' ? checked : value) }
         setState(newState)
         if (type === 'checkbox') {
+            setPending(true)
             props.onSearchFilms(newState)
+                .finally(() => {
+                    setPending(false)
+                })
         }
     }
 
@@ -27,7 +32,11 @@ export default function SearchForm(props) {
             return
         }
         setErrorMsg("")
+        setPending(true)
         props.onSearchFilms(state)
+            .finally(() => {
+                setPending(false)
+            })
     }
 
     return (
@@ -41,7 +50,7 @@ export default function SearchForm(props) {
                     value={state.filmTitle}
                     onChange={handleChange}
                 ></input>
-                <Button className="searchform__input-submit" type="submit">Поиск</Button>
+                <Button className="searchform__input-submit" type="submit" disabled={pending}>Поиск</Button>
             </label>
             <span className={`searchform__error ${errorMsg ? "searchform__error_active" : ""}`}>{errorMsg || "placeholder"}</span>
             <FilterCheckBox title="Короткометражки" id="shortFilms" name="shortFilms" onChange={handleChange} checked={state.shortFilms} />

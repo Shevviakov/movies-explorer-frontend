@@ -1,4 +1,5 @@
 import React from "react";
+import { NAME_PATTERN, NAME_VALIDATION_MESSAGE } from "../../utils/consts";
 
 import mainApi from '../../utils/MainApi'
 
@@ -10,8 +11,10 @@ import './SignUp.css'
 export default function SignUp(props) {
 
     const [apiError, setApiError] = React.useState("")
+    const [disabled, setDisabled] = React.useState(false)
 
     function handleSignUp(state) {
+        setDisabled(true)
         mainApi.signup(state).then(() => {
             return mainApi.signin(state)
         })
@@ -20,6 +23,9 @@ export default function SignUp(props) {
             })
             .catch(err => {
                 setApiError(err || "При авторизации произошла ошибка.")
+            })
+            .finally(() => {
+                setDisabled(false)
             });
 
     }
@@ -33,6 +39,7 @@ export default function SignUp(props) {
             footerLinkText="Войти"
             errorMsg={apiError}
             onSubmit={handleSignUp}
+            disabled={disabled}
         >
             <SignInput
                 id="name"
@@ -40,7 +47,8 @@ export default function SignUp(props) {
                 type="text"
                 labelText="Имя"
                 required={true}
-                pattern="[- A-Za-zА-Яа-я]+"
+                customMsg={NAME_VALIDATION_MESSAGE}
+                pattern={NAME_PATTERN}
             />
             <SignInput
                 id="email"
