@@ -1,7 +1,13 @@
-.App {
+.app {
   background-color: var(--background);
   color: var(--text-main);
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
+}
+
+.app__preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
 }

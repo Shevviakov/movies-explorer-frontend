@@ -31,7 +31,7 @@
 
 
 .signinput__input_error {
-    color: #EE3465;
+    color: var(--red-accent);
 }
 
 .signinput__error {
@@ -39,7 +39,7 @@
     line-height: 12px;
     margin: 3px auto 6px;
     visibility: hidden;
-    color: #EE3465;
+    color: var(--red-accent);
 }
 
 .signinput__error_active {

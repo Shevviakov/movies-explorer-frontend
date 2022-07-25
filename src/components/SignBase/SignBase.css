@@ -61,7 +61,7 @@
 
 .signbase__content {
     width: 100%;
-    min-height: 333px;
+    min-height: 300px;
 }
 
 @media screen and (max-width: 600px) {
@@ -85,6 +85,22 @@
     .signbase__footer {
         margin: auto 0 30px;
     }
+}
+
+.signbase__error-msg {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    color: var(--red-accent);
+    visibility: hidden;
+}
+
+.signbase__error-msg_active {
+    visibility: visible;
 }
 
 .signbase__submit-btn {
